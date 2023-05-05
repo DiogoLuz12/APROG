@@ -12,7 +12,10 @@ class BdLivrosOpenHelper(
     context: Context?,
 ) : SQLiteOpenHelper(context, NOME_BD, null, VERSAO_BD) {
     override fun onCreate(db: SQLiteDatabase?) {
+        requireNotNull(db)
+        TabelaCategorias(db!!).cria()
 
+        TabelaLivros(db!!).cria()
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
