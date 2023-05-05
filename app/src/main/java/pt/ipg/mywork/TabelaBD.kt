@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 
-class TabelaBD(val db: SQLiteDatabase, val nome: String) {
+abstract class TabelaBD(val db: SQLiteDatabase, val nome: String) {
     abstract fun cria()
 
     fun insere(valores: ContentValues) {
