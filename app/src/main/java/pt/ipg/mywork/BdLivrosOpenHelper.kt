@@ -11,8 +11,8 @@ private const val VERSAO_BD = 1
 class BdLivrosOpenHelper(
     context: Context?,
 ) : SQLiteOpenHelper(context, NOME_BD, null, VERSAO_BD) {
-    override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
+    override fun onCreate(db: SQLiteDatabase?) {
+
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
