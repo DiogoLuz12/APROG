@@ -29,7 +29,7 @@ abstract class TabelaBD(val db: SQLiteDatabase, val nome: String) {
         db.delete(nome, where, argswhere,)
 
     companion object {
-        const val CHAVE_TABELA = "${ BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT NOT NULL UNIQUE"
+        const val CHAVE_TABELA = "${ BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, des TEXT NOT NULL UNIQUE"
     }
 
 
