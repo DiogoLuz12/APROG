@@ -18,7 +18,14 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class BDInstrumentedTest {
 
+    fun consegueInserirVenda(){
+        val openHelper = BdLivrosOpenHelper(getAppContext())
+        val bd = openHelper.writableDatabase
 
+        val categoria = Categorias("Drama")
+        val id = TabelaCategorias(bd).insere(categoria.toContentValues())
+        assertNotEquals(-1, id)
+    }
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
