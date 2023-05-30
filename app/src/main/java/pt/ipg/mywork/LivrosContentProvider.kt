@@ -244,7 +244,17 @@ class LivrosContentProvider : ContentProvider() {
         selection: String?,
         selectionArgs: Array<out String>?
     ): Int {
-        TODO("Not yet implemented")
+        val bd = bdOpenHelper!!.writableDatabase
+
+        val endereco = uriMatcher().match(uri)
+        val tabela = when (endereco) {
+            URI_CATEGORIA_ID -> TabelaCategorias(bd)
+            URI_LIVRO_ID -> TabelaLivros(bd)
+            else -> return 0
+        }
+
+        val id = uri.lastPathSegment!!
+        return tabela.altera(values!!, "${BaseColumns._ID}=?", arrayOf(id))
     }
     companion object {
         private const val AUTORIDADE = "pt.ipg.livros"
