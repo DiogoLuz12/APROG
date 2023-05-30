@@ -12,8 +12,8 @@ abstract class TabelaBD(val db: SQLiteDatabase, val nome: String) {
         db.insert(nome, null, valores)
 
 
-    fun altera(valores: ContentValues, where: String, argwhere: Array<String>) =
-        db.update(nome, valores, where, argwhere )
+    fun altera(valores: ContentValues, where: String, argswhere: Array<String>) =
+        db.update(nome, valores, where, argswhere )
 
     fun consulta(
         colunas: Array<String>,
