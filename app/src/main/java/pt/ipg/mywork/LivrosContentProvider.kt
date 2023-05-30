@@ -4,8 +4,10 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
+import pt.ipg.mywork.BdLivrosOpenHelper
 
 class LivrosContentProvider : ContentProvider() {
+    private var bdOpenHelper : BdLivrosOpenHelper? = null
     /**
      * Implement this to initialize your content provider on startup.
      * This method is called for all registered content providers on the
@@ -34,7 +36,8 @@ class LivrosContentProvider : ContentProvider() {
      * @return true if the provider was successfully loaded, false otherwise
      */
     override fun onCreate(): Boolean {
-        TODO("Not yet implemented")
+        bdOpenHelper = BdLivrosOpenHelper(context)
+        return true
     }
 
     /**
