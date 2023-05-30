@@ -179,7 +179,21 @@ class LivrosContentProvider : ContentProvider() {
      * @return The URI for the newly inserted item.
      */
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        TODO("Not yet implemented")
+        val bd = bdOpenHelper!!.writableDatabase
+
+        val endereco = uriMatcher().match(uri)
+        val tabela = when (endereco) {
+            URI_CATEGORIAS -> TabelaCategorias(bd)
+            URI_LIVROS -> TabelaLivros(bd)
+            else -> return null
+        }
+
+        val id = tabela.insere(values!!)
+        if (id == -1L) {
+            return null
+        }
+
+        return Uri.withAppendedPath(uri, id.toString())
     }
 
     /**
