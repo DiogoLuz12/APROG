@@ -1,11 +1,13 @@
-package pt.ipg.livros
 
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.provider.BaseColumns
 import pt.ipg.mywork.BdLivrosOpenHelper
+import pt.ipg.mywork.TabelaCategorias
+import pt.ipg.mywork.TabelaLivros
 
 class LivrosContentProvider : ContentProvider() {
     private var bdOpenHelper : BdLivrosOpenHelper? = null
@@ -115,7 +117,30 @@ class LivrosContentProvider : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
-        TODO("Not yet implemented")
+        val bd = bdOpenHelper!!.readableDatabase
+
+        val endereco = uriMatcher().match(uri)
+        val tabela = when (endereco) {
+            URI_CATEGORIAS, URI_CATEGORIA_ID -> TabelaCategorias(bd)
+            URI_LIVROS, URI_LIVRO_ID -> TabelaLivros(bd)
+            else -> null
+        }
+
+        val id = uri.lastPathSegment
+
+        val (selecao, argsSel) = when (endereco) {
+            URI_CATEGORIA_ID, URI_LIVRO_ID -> Pair("${BaseColumns._ID}=?", arrayOf(id))
+            else -> Pair(selection, selectionArgs)
+        }
+
+        return tabela?.consulta(
+            projection as Array<String>,
+            selecao,
+            argsSel as Array<String>?,
+            null,
+            null,
+            sortOrder)
+
     }
 
     /**
@@ -214,11 +239,15 @@ class LivrosContentProvider : ContentProvider() {
         const val LIVROS = "livros"
 
         private const val URI_CATEGORIAS = 100
+        private const val URI_CATEGORIA_ID = 101
         private const val URI_LIVROS = 200
+        private const val URI_LIVRO_ID = 201
 
         fun uriMatcher() = UriMatcher(UriMatcher.NO_MATCH).apply {
             addURI(AUTORIDADE, CATEGORIAS, URI_CATEGORIAS)
+            addURI(AUTORIDADE, "$CATEGORIAS/#", URI_CATEGORIA_ID)
             addURI(AUTORIDADE, LIVROS, URI_LIVROS)
+            addURI(AUTORIDADE, "$LIVROS/#", URI_LIVRO_ID)
         }
     }
 }

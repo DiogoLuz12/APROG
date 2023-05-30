@@ -8,9 +8,10 @@
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
-                  <entry key="Duration" value="90" />
-                  <entry key="Resizable_Experimental_API_33" value="120" />
-                  <entry key="Tests" value="360" />
+                  <entry key="Duration" value="144" />
+                  <entry key="Resizable_Experimental_API_33" value="173" />
+                  <entry key="Resizable_Experimental_API_UpsideDownCake" value="120" />
+                  <entry key="Tests" value="414" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
