@@ -2,4 +2,7 @@
 <resources>
     <item name="action_MenuPrincipalFragment_to_SobreFragment" type="id" />
     <item name="action_SobreFragment_to_MenuPrinciapalFragment" type="id" />
+    <item name="MenuPrincipalFragment" type="id" />
+    <item name="SobreFragment" type="id" />
+    <item name="ListaLivrosFragment" type="id" />
 </resources>

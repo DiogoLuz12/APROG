@@ -12,6 +12,10 @@
     <string name="pesquisar">Pesquisar</string>
     <string name="sobre_app">Base de dados de Livros\n\n
     Exercício Programação Avançada\n
-    Diogo Luz</string>
+    Diogo Luz
+    </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lista_livros_label">Livros</string>
 
 </resources>
