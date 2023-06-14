@@ -3,6 +3,7 @@ package pt.ipg.livros
 import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import pt.ipg.mywork.Livro
@@ -15,7 +16,15 @@ class AdapterLivros(val fragment: ListaLivrosFragment) : RecyclerView.Adapter<Ad
             notifyDataSetChanged()
         }
     inner class ViewHolderLivro(contentor: View) : ViewHolder(contentor) {
+        private val textViewTitulo = contentor.findViewById<TextView>(R.id.textViewTitulo)
+        private val textViewCategoria = contentor.findViewById<TextView>(R.id.textViewCategoria)
+
         internal var livro: Livro? = null
+            set(value) {
+                field = value
+                textViewTitulo.text = livro?.titulo ?: ""
+                textViewCategoria.text = livro?.idCategoria.toString() ?: ""
+            }
 
     }
 
