@@ -90,5 +90,6 @@ class AdapterLivros(val fragment: ListaLivrosFragment) : RecyclerView.Adapter<Ad
     override fun onBindViewHolder(holder: ViewHolderLivro, position: Int) {
         cursor!!.move(position)
         holder.livro = Livro.fromCursor(cursor!!)
+        cursor!!.moveToPosition(position)
     }
 }
