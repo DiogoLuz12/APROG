@@ -33,7 +33,7 @@ class BDInstrumentedTest {
 
     @Before
     fun apagaBD(){
-        getAppContext().deleteDatabase(BdLivrosOpenHelper.NOME_BASE_DADOS)
+        //getAppContext().deleteDatabase(BdLivrosOpenHelper.NOME_BASE_DADOS)
     }
 
 
