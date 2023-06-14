@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import pt.ipg.mywork.Livro
 import pt.ipg.mywork.R
 
 class AdapterLivros(val fragment: ListaLivrosFragment) : RecyclerView.Adapter<AdapterLivros.ViewHolderLivro>() {
@@ -13,7 +14,8 @@ class AdapterLivros(val fragment: ListaLivrosFragment) : RecyclerView.Adapter<Ad
             field = value
             notifyDataSetChanged()
         }
-    inner class ViewHolderLivro(itemView: View) : ViewHolder(itemView) {
+    inner class ViewHolderLivro(contentor: View) : ViewHolder(contentor) {
+        internal var livro: Livro? = null
 
     }
 
@@ -77,6 +79,7 @@ class AdapterLivros(val fragment: ListaLivrosFragment) : RecyclerView.Adapter<Ad
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: ViewHolderLivro, position: Int) {
-        TODO("Not yet implemented")
+        cursor!!.move(position)
+        holder.livro = Livro.fromCursor(cursor!!)
     }
 }
