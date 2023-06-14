@@ -14,7 +14,7 @@
         tools:ignore="ExtraText">
 
         <Button
-            android:id="@+id/buttonFirst"
+            android:id="@+id/buttonSobre"
             android:layout_width="110dp"
             android:layout_height="48dp"
             android:layout_marginStart="10dp"

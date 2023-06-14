@@ -2,12 +2,16 @@
     <string name="app_name">MyWork</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="menu_principal_label">Menu principal</string>
+    <string name="sobre_fragment_label">Sobre ...</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="sobre">Sobre</string>
     <string name="livros">Livros</string>
     <string name="categoria">Categoria</string>
     <string name="pesquisar">Pesquisar</string>
+    <string name="sobre_app">Base de dados de Livros\n\n
+    Exercício Programação Avançada\n
+    Diogo Luz</string>
+
 </resources>
