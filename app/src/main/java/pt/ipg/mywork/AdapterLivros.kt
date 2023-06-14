@@ -23,7 +23,7 @@ class AdapterLivros(val fragment: ListaLivrosFragment) : RecyclerView.Adapter<Ad
             set(value) {
                 field = value
                 textViewTitulo.text = livro?.titulo ?: ""
-                textViewCategoria.text = livro?.idCategoria.toString() ?: ""
+                textViewCategoria.text = livro?.categoria?.descricao ?: ""
             }
 
     }

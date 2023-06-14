@@ -5,4 +5,13 @@
     <item name="MenuPrincipalFragment" type="id" />
     <item name="SobreFragment" type="id" />
     <item name="ListaLivrosFragment" type="id" />
+    <item name="action_editarLivroFragment_to_ListaLivrosFragment" type="id" />
+    <item name="action_cancelar" type="id" />
+    <item name="action_guardar" type="id" />
+    <item name="action_eliminarLivroFragment_to_ListaLivrosFragment" type="id" />
+    <item name="textView7" type="id" />
+    <item name="textViewDataPub" type="id" />
+    <item name="textView3" type="id" />
+    <item name="textViewISBN" type="id" />
+    <item name="textView5" type="id" />
 </resources>

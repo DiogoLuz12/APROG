@@ -35,7 +35,7 @@ class SobreFragment : Fragment() {
 
         val activity = activity as MainActivity
         activity.fragment = this
-        activity.idMenuAtual = R.menu.menu_main
+        activity.idMenuAtual= R.menu.menu_main
     }
 
     override fun onDestroyView() {

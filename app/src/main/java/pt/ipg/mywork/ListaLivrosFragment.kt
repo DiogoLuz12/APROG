@@ -4,41 +4,48 @@ import android.database.Cursor
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import pt.ipg.mywork.Livro
+import pt.ipg.mywork.MainActivity
+import pt.ipg.mywork.R
 import pt.ipg.mywork.TabelaLivros
 import pt.ipg.mywork.databinding.FragmentListaLivrosBinding
 
 private const val ID_LOADER_LIVROS = 0
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ListaLivrosFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ListaLivrosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
-    // TODO: Rename and change types of parameters
     private var _binding: FragmentListaLivrosBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
+    var livroSelecionado : Livro? = null
+        set(value) {
+            field = value
+
+            val mostrarEliminarAlterar = (value != null)
+
+            val activity = activity as MainActivity
+            activity.mostraOpcaoMenu(R.id.action_editar, mostrarEliminarAlterar)
+            activity.mostraOpcaoMenu(R.id.action_eliminar, mostrarEliminarAlterar)
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentListaLivrosBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,9 +66,11 @@ class ListaLivrosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         val loader = LoaderManager.getInstance(this)
         loader.initLoader(ID_LOADER_LIVROS, null, this)
+
+        val activity = activity as MainActivity
+        activity.fragment = this
+        activity.idMenuAtual = R.menu.menu_lista_livros
     }
-    companion object {
-                }
 
     /**
      * Instantiate and return a new Loader for the given ID.
@@ -104,7 +113,7 @@ class ListaLivrosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
      * them to you through new calls here.  You should not monitor the
      * data yourself.  For example, if the data is a [android.database.Cursor]
      * and you place it in a [android.widget.CursorAdapter], use
-     * the [android.widget.CursorAdapter.CursorAdapter] constructor *without* passing
+     * the [android.widget.CursorAdapter] constructor *without* passing
      * in either [android.widget.CursorAdapter.FLAG_AUTO_REQUERY]
      * or [android.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER]
      * (that is, use 0 for the flags argument).  This prevents the CursorAdapter
@@ -141,7 +150,41 @@ class ListaLivrosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
      * @param loader The Loader that is being reset.
      */
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        adapterLivros!!.cursor = null
+        if (adapterLivros != null) {
+            adapterLivros!!.cursor = null
+        }
+    }
+
+    fun processaOpcaoMenu(item: MenuItem) : Boolean {
+        return when (item.itemId) {
+            R.id.action_adicionar -> {
+                adicionaLivro()
+                true
+            }
+            R.id.action_editar -> {
+                editarLivro()
+                true
+            }
+            R.id.action_eliminar -> {
+                eliminarLivro()
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun eliminarLivro() {
+        val acao = ListaLivrosFragmentDirections.actionListaLivrosFragmentToEliminarLivroFragment(livroSelecionado!!)
+        findNavController().navigate(acao)
+    }
+
+    private fun editarLivro() {
+        val acao = ListaLivrosFragmentDirections.actionListaLivrosFragmentToEditarLivroFragment(livroSelecionado!!)
+        findNavController().navigate(acao)
+    }
+
+    private fun adicionaLivro() {
+        val acao = ListaLivrosFragmentDirections.actionListaLivrosFragmentToEditarLivroFragment(null)
+        findNavController().navigate(acao)
     }
 }
-

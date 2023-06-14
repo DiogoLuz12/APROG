@@ -77,10 +77,10 @@ class BDInstrumentedTest {
         val categoria = Categorias("humor")
         insereCategoria(bd, categoria)
 
-        val livro1 = Livro("O Lixo na Minha Cabeça",categoria.id)
+        val livro1 = Livro("O Lixo na Minha Cabeça",categoria)
         insereLivro(bd, livro1)
 
-        val livro2 =Livro("Novíssimas crónicas da boca do inferno",categoria.id," 9789896711788")
+        val livro2 =Livro("Novíssimas crónicas da boca do inferno",categoria," 9789896711788")
         insereLivro(bd, livro2)
     }
 
@@ -127,20 +127,20 @@ class BDInstrumentedTest {
         val categoria = Categorias("Contos")
         insereCategoria(bd, categoria)
 
-        val livro1 = Livro("Todos os Contos", categoria.id)
+        val livro1 = Livro("Todos os Contos", categoria)
         insereLivro(bd, livro1)
 
         val dataPub = Calendar.getInstance()
         dataPub.set(2016, 4, 1)
 
-        val livro2 = Livro("Contos de Grimm", categoria.id, "978-1473683556", dataPub)
+        val livro2 = Livro("Contos de Grimm", categoria, "978-1473683556", dataPub)
         insereLivro(bd, livro2)
 
         val tabelaLivros = TabelaLivros(bd)
 
         val cursor = tabelaLivros.consulta(
             TabelaLivros.CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaLivros.CAMPO_ID}=?",
             arrayOf(livro1.id.toString()),
             null,
             null,
@@ -190,13 +190,13 @@ class BDInstrumentedTest {
         val categoriaNacional = Categorias("Literatura Nacional")
         insereCategoria(bd, categoriaNacional)
 
-        val livro1 = Livro("...", categoriaNacional.id)
+        val livro1 = Livro("...", categoriaNacional)
         insereLivro(bd, livro1)
 
         val novaDataPub = Calendar.getInstance()
 
         novaDataPub.set(1999,1,1)
-        livro1.idCategoria = categoriaJuvenil.id
+        livro1.categoria = categoriaJuvenil
         livro1.titulo = "O meu Pé de Laranja Lima"
         livro1.dataPublicacao = novaDataPub
         livro1.isbn = "8506043662"
@@ -227,26 +227,18 @@ class BDInstrumentedTest {
 
     @Test
     fun deleteLivros(){
+
         val bd = getWritableDatabase()
 
-        val categoria = Categorias("Programaçao")
+        val categoria = Categorias("Programação")
         insereCategoria(bd, categoria)
 
-
-        val livro1 = Livro("...", categoria.id)
-        insereLivro(bd, livro1)
-
-        val novaDataPub = Calendar.getInstance()
-
-        novaDataPub.set(1999,1,1)
-        livro1.idCategoria = categoria.id
-        livro1.titulo = "O meu Pé de Laranja Lima"
-        livro1.dataPublicacao = novaDataPub
-        livro1.isbn = "8506043662"
+        val livro = Livro("...", categoria)
+        insereLivro(bd, livro)
 
         val registosEliminados = TabelaLivros(bd).elimina(
             "${BaseColumns._ID}=?",
-            arrayOf(livro1.id.toString()),
+            arrayOf(livro.id.toString())
         )
 
         assertNotEquals(1,registosEliminados)
